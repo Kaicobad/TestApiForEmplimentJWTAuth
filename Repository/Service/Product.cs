@@ -17,7 +17,7 @@ namespace testapi.Repository.Service
             try
             {
                 applicationDbContext.products.Add(product);
-                applicationDbContext.SaveChangesAsync();
+                applicationDbContext.SaveChanges();
             }
             catch (Exception ex)
             {
