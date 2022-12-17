@@ -11,8 +11,8 @@ using testapi.DataLayer;
 namespace testapi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221211040720_Make UsertableIDpk")]
-    partial class MakeUsertableIDpk
+    [Migration("20221217141925_addedUsertable")]
+    partial class addedUsertable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,7 +59,7 @@ namespace testapi.Migrations
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Passwword")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

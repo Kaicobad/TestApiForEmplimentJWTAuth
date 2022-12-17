@@ -55,24 +55,50 @@ namespace testapi.Repository.Service
             }
         }
 
-        public async Task<Model.User> GetUserByCredentials(string userName)
+        //public async Task<Model.User> GetUserByCredentials(string userName)
+        //{
+        //    //            try
+        //    //            {
+        //    //                var user = await applicationDbContext.users.FindAsync(userName);
+
+        //    //                if (user != null)
+        //    //                {
+        //    //                    return null;
+        //    //                }
+        //    //;            }
+        //    //            catch (Exception)
+        //    //            {
+
+        //    //                throw;
+        //    //            }
+
+        //    return null;
+        //}
+
+        public async Task<Model.User> GetUserByCredentials(Model.User user)
         {
-            //            try
-            //            {
-            //                var user = await applicationDbContext.users.FindAsync(userName);
+            
+            try
+            {
+                //var users = applicationDbContext.users.Select(u => new
+                //{
+                //    UserName = u.UserName,
+                //    Password = u.Password,
+                //}).Where(s => s.UserName == userName || s.Password == password).FirstOrDefault();
 
-            //                if (user != null)
-            //                {
-            //                    return null;
-            //                }
-            //;            }
-            //            catch (Exception)
-            //            {
 
-            //                throw;
-            //            }
+                var users = await applicationDbContext.users.Where(a => a.UserName == user.UserName || a.Password == user.Password).Select(a => new { a.Id, a.UserName, a.Password }).FirstAsync();
 
-            return null;
+                user.UserName = users.UserName;
+                user.Password = users.Password;
+
+                return user;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

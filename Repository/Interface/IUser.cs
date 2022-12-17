@@ -6,6 +6,6 @@ namespace testapi.Repository.Interface
     {
         public Task<List<User>> GetAllUserDetails();
         public Task<bool> CheckUserAvalilability(int id);
-        public Task<User> GetUserByCredentials(string userName,string password);
+        public Task<User> GetUserByCredentials(Model.User user);
     }
 }
