@@ -72,7 +72,7 @@ namespace testapi.Repository.Service
             catch (Exception ex)
             {
 
-                throw ex;
+                throw ex.InnerException;
             }
         }
 
