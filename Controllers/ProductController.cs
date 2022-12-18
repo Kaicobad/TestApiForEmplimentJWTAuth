@@ -18,6 +18,7 @@ namespace testapi.Controllers
            _product = product;
         }
         [HttpGet,Route("getallproducts")]
+        [Authorize]
         public async Task<IActionResult> GetProducts()
         {
             var Products = _product.GetProducteDetails();

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using testapi.DataLayer;
+using testapi.Model;
 using testapi.Repository.Interface;
 using testapi.Repository.Service;
 
@@ -11,18 +12,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<ApplicationDbContext>
-    (options =>
-    {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("Constr"));
-    });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -34,8 +29,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<ApplicationDbContext>
+    (options =>
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("Constr"));
+    });
 
-builder.Services.AddTransient<IProduct, Product>();
+
+builder.Services.AddTransient<IProduct, testapi.Repository.Service.Product>();
+builder.Services.AddTransient<IUser, testapi.Repository.Service.User>();
+builder.Services.AddTransient<JwtTokenService>();
 
 var app = builder.Build();
 

@@ -80,12 +80,6 @@ namespace testapi.Repository.Service
             
             try
             {
-                //var users = applicationDbContext.users.Select(u => new
-                //{
-                //    UserName = u.UserName,
-                //    Password = u.Password,
-                //}).Where(s => s.UserName == userName || s.Password == password).FirstOrDefault();
-
 
                 var users = await applicationDbContext.users.Where(a => a.UserName == user.UserName || a.Password == user.Password).Select(a => new { a.Id, a.UserName, a.Password }).FirstAsync();
 
