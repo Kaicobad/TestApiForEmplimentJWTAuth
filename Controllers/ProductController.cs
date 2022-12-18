@@ -58,6 +58,7 @@ namespace testapi.Controllers
             }
         }
         [HttpPost, Route("addproduct")]
+        [Authorize]
         public async Task<IActionResult> AddProduct(testapi.Model.Product product)
         {
             try
@@ -83,6 +84,7 @@ namespace testapi.Controllers
             
         }
         [HttpPost,Route("checkproduct")]
+        [Authorize]
         public async Task<IActionResult> CheckProduct(int id)
         {
             try
