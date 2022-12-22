@@ -76,6 +76,8 @@ builder.Services.AddTransient<IProduct, testapi.Repository.Service.Product>();
 builder.Services.AddTransient<IUser, testapi.Repository.Service.User>();
 builder.Services.AddTransient<JwtTokenService>();
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -85,6 +87,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(builder =>
+{
+    builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+});
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
